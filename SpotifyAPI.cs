@@ -15,10 +15,14 @@ namespace SpotifyLyrics
 
         private async Task<string> GetTokenAsync()
         {
-            var sp_dc = File.ReadAllText("spotify.txt");
-            if (string.IsNullOrEmpty(sp_dc))
+            var sp_dc = "";
+            if (File.Exists("spotify.txt"))
             {
-                throw new Exception("Please set SP_DC as a environmental variable.");
+                sp_dc = File.ReadAllText("spotify.txt");
+            }
+            else
+            {
+                throw new Exception("Please set SP_DC in spotify.txt file.");
             }
 
             using (var client = new HttpClient())
